@@ -1,25 +1,18 @@
 public class Solution {
-    public bool IsValid(string s) {
-        Stack<char> st = new Stack<char>();
-     
-        foreach (char c in s) {
-            if (c == '(' || c == '{' || c == '[') {
-                st.Push(c);
+    public int FindMin(int[] nums) {
+         int left = 0;
+        int right = nums.Length - 1;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] > nums[right]) {
+                left = mid + 1;
             }
-            else if (c == ')' || c == '}' || c == ']') {
-                
-                if (st.Count == 0) return false; 
-                char top = st.Peek();
-                if ((c == ')' && top != '(') ||
-                    (c == '}' && top != '{') ||
-                    (c == ']' && top != '[')) {
-                    return false;
-                }
-                
-                st.Pop(); 
+            else {
+                right = mid;
             }
         }
-        
-        return st.Count == 0; 
+        return nums[left];
     }
 }
